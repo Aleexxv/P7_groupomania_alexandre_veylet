@@ -1,0 +1,148 @@
+body, html{
+    padding: 0;
+    margin: 0;
+    font-family: 'Jura', sans-serif;
+/*     overflow-x: hidden;
+    overflow-y: hidden; */
+	color: var(--color);
+	background: var(--bg);
+}
+
+:root {
+    --color: #243746;
+	--colorI: #ebf4f1;
+    --color-primary: #d05059;
+    --color-secondary: #0e2233;
+    --bg: #f3f5f4;
+	--bgI: #091a28;
+    --bgt5: hsla(150, 9%, 96%, .5);
+    --bgt7: hsla(150, 9%, 96%, .7);
+    --bg-secondary: #fff;
+    --border-color: #ddd;
+}
+
+.🌙-mode {
+    --color: #ebf4f1;
+	--colorI: #243746;
+    --color-primary: #d05059;
+    --color-secondary: #fdf9f3;
+    --bg: #091a28;
+    --bgI: #f3f5f4;
+    --bgt5: hsla(207, 63%, 10%, .5);
+    --bgt7: hsla(207, 63%, 10%, .7);
+    --bg-secondary: #071521;
+    --border-color: #0d2538;
+}
+
+.flex{
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+
+}
+
+form{
+	padding: 2rem 0;
+	z-index: 2;
+	input{
+		color: var(--color);
+		display: block;
+		appearance: none;
+		outline: 0;
+		width: 25rem;
+		border: unset;
+		border-bottom: 2px solid var(--color);
+		background: transparent;
+		padding: 1rem;
+		margin: 0 auto 2rem auto;
+		text-align: center;
+		font-size: 1rem;
+		transition-duration: 0.25s;
+		&::placeholder {
+			color: var(--color);
+		}
+		&:focus{
+			width: 30rem;
+			background: rgba(255, 255, 255, 0.287);
+		}
+	}
+} 
+
+.button{
+	appearance: none;
+	outline: 0;
+	background: transparent;
+	border: 2px solid var(--color-primary);
+	border-radius: 1rem;
+	padding: 1rem;
+	cursor: pointer;
+	transition-duration: 0.25s;
+	color: var(--color);
+	margin: 0 auto;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-size: 1rem;
+}
+
+.buttonDisabled {
+    background: rgba(128, 128, 128, .5);
+	pointer-events: none;
+}
+
+svg{
+	fill: var(--color);
+}
+
+a{
+	font-size: 1.5rem;
+	padding: 0 1rem;
+	text-decoration: none;
+	color: var(--color);
+
+}
+
+figcaption{
+	position: relative;
+	background: var(--bg-secondary);
+	color: var(--color-secondary);
+	padding: 2rem;
+	border-radius: 2rem;
+	margin: 2rem 4rem;
+	p{
+		border: 2px solid var(--color);
+		border-radius: 1rem;
+		padding: 1rem;
+	}
+	.button{
+		background: var(--bg);
+		color: var(--color);
+		border: 2px solid var(--color-primary);
+	}
+}
+
+.supp{
+	padding: .2rem .5rem;
+	position: absolute;
+	top: 7%;
+	left: 99%;
+	transform: translateX(-100%);
+}
+
+.like{
+	margin: 0;
+	padding: 0 1rem;
+	position: initial;
+}
+
+.ctlike{
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+.action{
+	padding-top: 1rem;
+	justify-content: right;
+	align-items: center;
+}
