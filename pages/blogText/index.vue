@@ -2,18 +2,17 @@
 	<div>
 		<div class="content">
 			<div class="reelContent">
-				<figcaption v-for="article in articles" :key="article">
+				<figcaption v-for="article in articles" :key="article.id">
 					<!-- <button class="button supp">x</button> -->
-					<h2>{{ article.title }}</h2>
-					<p>{{ article.desc }}</p>
+					<h2> {{ article.title }} </h2>
+					<p> {{ article.desc }} </p>
+					
 					<div class="flex action">
-						<button class="button like">like</button>
-						<p class="ctlike">1</p>
+						<span> {{ article.author }} </span>
+						<!-- <button class="button like">like</button>
+						<p class="ctlike">1</p> -->
 					</div>
 				</figcaption>
-			</div>
-			<div class="fullStars">
-
 			</div>
 		</div>
 	</div>
@@ -22,29 +21,17 @@
 <script>
 
 export default {
-	auth: "guest",
 
-	data() {
-		return {
-			title: '',
+	data: () => ({
+		title: '',
 			desc: '',
-			articles: [],
-		}
-	},
-	
-	computed: {
+			articles: []
+		}),
 
-	},
-
-	mounted() {
-		this.$store.dispatch('getArticles')
+	async fetch() {
+		this.articles = await this.$axios.$get('http://localhost:3000/api/articles')
 	},
 
-	methods: {
-		async Articles() {
-			await this.$store.state.articles;
-		},
-	},
 }
 
 
@@ -54,12 +41,16 @@ export default {
 <style lang="scss" scoped>
 
 .content{
-	display: flex;
+
 	justify-content: center;
 	position: relative;
 	background: var(--bg);
 	color: var(--color);;
-	margin-top: 4%;
+	margin-top: 5rem;
+}
+
+figcaption{
+	margin-top: 6rem;
 }
 
 .fullStars {

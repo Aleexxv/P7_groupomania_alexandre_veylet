@@ -1,15 +1,15 @@
 const express = require('express');
 const { maridb } = require('mariadb');
 const { Sequelize, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+import {User} from './models/User';
 
     // DATABASE
 
-// CONNEXION TO DATABASE
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    dialect: process.env.DB_DIALECT,
-});
+
 
 (async () => {
     await Sequelize.sync({ force: true });
@@ -26,9 +26,14 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
 
     //APP
 
-// CREATE APP
+// CREATE APP AND USE
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors({
+    credentials: true,
+    origin : 'http://localhost:3000'
+}));
 
 
 //HEADERS APP
@@ -43,36 +48,26 @@ app.use((req, res, next) => {
     // USERS
 
 // MODEL USER
-const User = sequelize.define("User", {
-    firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    lastName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-});
+
 
 // REQ CREATE USER
-app.post('/users', (req, res, next) => {
+app.post('/register', (req, res, next) => {
     (async () => {
         try {
-            // await User.sync ({ alter: true })
+            await User.sync ({ alter: true })
+
+            const salt = await bcrypt.genSalt(10);
+            const test = req.body.password
+            const hash = await bcrypt.hash(test, salt);
+
             const user = User.create({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 email: req.body.email,
-                password: req.body.password,
+                password: hash,
             });
+
+            res.send(await user);
             console.log(user)
             } catch (error) {
             console.error(error)
@@ -80,18 +75,70 @@ app.post('/users', (req, res, next) => {
     })()
 })
 
-// REQ FIND ALL ARTICLES
-app.get('/users', (req, res, next) => {
+// REQ LOGIN USER
+app.post('/login', (req, res, next) => {
     (async () => {
         try {
-            const users = await User.findAll();
-            res.send(users);
-            console.log(users.every(user => user instanceof User)); // true
-            console.log("All users:", JSON.stringify(users, null, 2));
-            } catch (error) {
-            console.error(error)
+            const user = await User.findOne({
+                where: {
+                    email: req.body.email,
+                }
+            });
+            if (user) {
+                const valid = await bcrypt.compare(req.body.password, user.password); 
+                if (valid) {
+                    res.status(200).json({
+                        id: user.id,
+                        token: token = jwt.sign({ id: user.id }, 'process.env.SERCRET_TOKEN', { expiresIn: '1h' }),
+                    });
+                } else {
+                    res.status(401).json({ message: 'Mot de passe incorrect' });
+                }
+            } else {
+                res.status(401).json({ message: 'Email incorrect' });
+            }
+        } catch (err) {
+            console.log({message : err})
         }
     })()
+})
+%
+
+// REQ FIND USER
+app.get('/user', (req, res, next) => {
+    (async () => {
+        try {
+            const verify = jwt.verify(token, 'process.env.SERCRET_TOKEN')
+            if (!verify) {
+                res.status(401).json({ message: 'Vous n\'êtes pas connecté' });
+            } else {
+                const user = await User.findOne({
+                    where: {
+                        id: verify.id,
+                    }
+                });
+                res.send(user);
+            }
+        } catch (err) {
+            console.log({ message: err })
+        }
+    })()
+})
+
+
+// REQ LOGOUT USER
+app.post('/logout', (req, res, next) => {
+    const verify = jwt.verify(token, 'process.env.SERCRET_TOKEN')
+    const user = User.findOne({
+        where: {
+            id: verify.id,
+        }
+    });
+    res.status(200).json({
+        message: 'Vous êtes déconnecté',
+        token: token = jwt.sign({ id: user.id }, 'process.env.SERCRET_TOKEN', { expiresIn: '0h' }),
+    });
+    res.send('Vous êtes déconnecté');
 })
 
     // ARTICLES
@@ -106,6 +153,10 @@ const Article = sequelize.define("Article", {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    author: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 });
 
 // REQ POST ARTICLES
@@ -116,6 +167,7 @@ app.post('/articles', (req, res, next) => {
             const article = Article.create({
                 title: req.body.title,
                 desc: req.body.desc,
+                author: req.body.author,
             });
             console.log(article)
             } catch (error) {

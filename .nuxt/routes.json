@@ -3,49 +3,42 @@
     "name": "blogText",
     "path": "/blogText",
     "component": "C:\\\\Users\\\\aveyl\\\\Desktop\\\\Groupomania-master\\\\pages\\\\blogText\\\\index.vue",
-    "chunkName": "pages/blogText/index",
-    "_name": "_17e7ed58"
+    "chunkName": "pages/blogText/index"
   },
   {
     "name": "blogVideo",
     "path": "/blogVideo",
     "component": "C:\\\\Users\\\\aveyl\\\\Desktop\\\\Groupomania-master\\\\pages\\\\blogVideo\\\\index.vue",
-    "chunkName": "pages/blogVideo/index",
-    "_name": "_732fe534"
+    "chunkName": "pages/blogVideo/index"
   },
   {
     "name": "login",
     "path": "/login",
     "component": "C:\\\\Users\\\\aveyl\\\\Desktop\\\\Groupomania-master\\\\pages\\\\login\\\\index.vue",
-    "chunkName": "pages/login/index",
-    "_name": "_9cf9f978"
+    "chunkName": "pages/login/index"
   },
   {
     "name": "profil",
     "path": "/profil",
     "component": "C:\\\\Users\\\\aveyl\\\\Desktop\\\\Groupomania-master\\\\pages\\\\profil\\\\index.vue",
-    "chunkName": "pages/profil/index",
-    "_name": "_5b3b7faa"
+    "chunkName": "pages/profil/index"
   },
   {
     "name": "login-admin",
     "path": "/login/admin",
     "component": "C:\\\\Users\\\\aveyl\\\\Desktop\\\\Groupomania-master\\\\pages\\\\login\\\\admin\\\\index.vue",
-    "chunkName": "pages/login/admin/index",
-    "_name": "_318c8221"
+    "chunkName": "pages/login/admin/index"
   },
   {
     "name": "profil-updateProfil",
     "path": "/profil/updateProfil",
     "component": "C:\\\\Users\\\\aveyl\\\\Desktop\\\\Groupomania-master\\\\pages\\\\profil\\\\updateProfil.vue",
-    "chunkName": "pages/profil/updateProfil",
-    "_name": "_204df79c"
+    "chunkName": "pages/profil/updateProfil"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\aveyl\\\\Desktop\\\\Groupomania-master\\\\pages\\\\index.vue",
-    "chunkName": "pages/index",
-    "_name": "_5a05e467"
+    "chunkName": "pages/index"
   }
 ]

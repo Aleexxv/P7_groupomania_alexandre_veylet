@@ -3,10 +3,8 @@
 		<div class="profil">
 			<div>
 				<img src="https://i.pravatar.cc/300" alt="">
-				<div v-for="user in users" :key="user" class="profilName">
 					<h2>{{ user.firstName }} {{ user.lastName }}</h2>
 					<h3>{{ user.email }}</h3>
-				</div>
 				<p>Vous avez partagé {{ nbrLikeText }} publication</p>
 				<button class="button updateProfile"> <NuxtLink class="link" to="/profil/updateProfil">Je modifie mon profile !</NuxtLink></button>
 			</div>
@@ -21,13 +19,12 @@
 					</div>
 				</form>
 			</div>
-				<figcaption v-for="article in articles" :key="article">
+				<figcaption v-for="article in articles" :key="article.id">
 					<button class="button supp">x</button>
 					<h2>{{ article.title }}</h2>
 					<p>{{ article.desc }}</p>
 					<div class="flex action">
-						<button class="button like">like</button>
-						<p class="ctlike">1</p>
+						<button class="button like">Modifier</button>
 					</div>
 				</figcaption>
 		</div>
@@ -41,27 +38,28 @@
 
 	export default {
 
-		auth: 'guest',
-
-		data() {
-			return {
-				firstName: '',
-				lastName: '',
-				email: '',
-				nbrLikeText: '',
-				title: '',
-				desc: '',
-				users: [],
-				articles: []
-			}
-		},
-
-		mounted() {
-			this.$store.dispatch('getArticles')
-			this.$store.dispatch('getUsers')
-		},
+		data: () => ({
+			firstName: '',
+			lastName: '',
+			email: '',
+			nbrLikeText: '',
+			title: '',
+			desc: '',
+			author: '',
+			user: [],
+			articles: []
+		}),
 
 		methods: {
+
+			setUser(){
+				this.user = this.$store.state.user
+				this.firstName = this.user.firstName
+				this.lastName = this.user.lastName
+				this.email = this.user.email
+				this.nbrLikeText = this.user.nbrLikeText
+			},
+
 			postArticle() {
 				this.$store.dispatch('postArticle', {
 					title: this.title,
@@ -70,7 +68,7 @@
 			},
 		},
 
-	}
+}
 
 </script>
 

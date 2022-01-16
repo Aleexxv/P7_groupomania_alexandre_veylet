@@ -11,34 +11,43 @@ import axios from 'axios'
 const actions = {
     register: ({commit}, user) => {
         commit;
-        axios.post('/api/users', user)
+        axios.post('/api/register', user)
             .then(res => {
-                console.log(res);
+
+                res.send(res.data)
             }
         )
     },
 
-    getUsers: ({commit}, users) => {
+    login: ({commit}, user) => {
         commit;
-        axios.get('/api/users', users)
+        axios.post('/api/login', user)
+        .then(res => {
+            console.log('réponse back', res.data);
+            axios.get('/api/user')
             .then(res => {
-                console.log(res.data);
+                    console.log('user', res.data);
+                }).catch (err => {
+                    console.log(err)
+                })
             }
-        )
+        ).catch (err => {
+            console.log(err)
+        })
     },
 
     postArticle: ({commit}, article) => {
         commit;
         axios.post('/api/articles', article)
             .then(res => {
-                console.log(res);
+                res.send(res.data)
             }
         )
     },
-    
-    getArticles: ({commit}, articles) => {
+
+    getArticle: ({commit}, article) => {
         commit;
-        axios.get('/api/articles', articles)
+        axios.get('/api/articles', article)
             .then(res => {
                 console.log(res.data);
             }

@@ -23,8 +23,8 @@ export default {
 	],
 
 	loading: {
-		color: '#FFF78C',
-		height: '100px'
+		color: 'blue',
+		height: '1rem'
 	},
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
@@ -52,15 +52,9 @@ export default {
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
 		'@nuxtjs/axios',
-		'@nuxtjs/auth-next'
 	],
 
-	router: {
-		middleware: ['auth']
-	},
-
-	axios: { baseURL: "http://process.env.HOST:process.env.DB_PORT/" },
-
+	axios: { baseURL: "http://process.env.HOST:process.env.DB_PORT/api" },
 
 	serverMiddleware: [
 		{ path: '/serverMiddleware',
@@ -68,7 +62,6 @@ export default {
 		handler: '~/serverMiddleware/api'
 		},
 	],
-	
 
 	fontawesome: {
 	},

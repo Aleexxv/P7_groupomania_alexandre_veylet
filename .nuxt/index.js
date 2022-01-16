@@ -5,7 +5,7 @@ import ClientOnly from 'vue-client-only'
 import NoSsr from 'vue-no-ssr'
 import { createRouter } from './router.js'
 import NuxtChild from './components/nuxt-child.js'
-import NuxtError from './components/nuxt-error.vue'
+import NuxtError from '..\\layouts\\error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
@@ -18,7 +18,6 @@ import nuxt_plugin_axios_806fcc42 from 'nuxt_plugin_axios_806fcc42' // Source: .
 import nuxt_plugin_pluginserver_3a69c02a from 'nuxt_plugin_pluginserver_3a69c02a' // Source: .\\color-mode\\plugin.server.js (mode: 'server')
 import nuxt_plugin_pluginclient_569f62bc from 'nuxt_plugin_pluginclient_569f62bc' // Source: .\\color-mode\\plugin.client.js (mode: 'client')
 import nuxt_plugin_gsapModule_2a62725c from 'nuxt_plugin_gsapModule_2a62725c' // Source: .\\gsapModule.js (mode: 'all')
-import nuxt_plugin_auth_b25d511e from 'nuxt_plugin_auth_b25d511e' // Source: .\\auth.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -233,10 +232,6 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_gsapModule_2a62725c === 'function') {
     await nuxt_plugin_gsapModule_2a62725c(app.context, inject)
-  }
-
-  if (typeof nuxt_plugin_auth_b25d511e === 'function') {
-    await nuxt_plugin_auth_b25d511e(app.context, inject)
   }
 
   // Lock enablePreview in context
